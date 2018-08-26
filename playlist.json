@@ -1,0 +1,37 @@
+{
+    "date_created": "11/08/2018",
+    "date_fetched": "24/08/2018",
+    "playlist_items": [{
+            "url": "videos/a.mp4",
+            "order": 0,
+            "duration": 4
+        },
+        {
+            "url": "videos/b.mp4",
+            "order": 1,
+            "duration": 4
+        },
+        {
+            "url": "videos/c.mp4",
+            "order": 2,
+            "duration": 4
+        },
+        {
+            "url": "videos/d.mp4",
+            "order": 3,
+            "duration": 4
+        },
+        {
+            "url": "http://web04.youtube-video-download.com/yvd-files/funny-rubbits-10-sec-video.mp4/20180825211114_1512c1fa-e018-4113-b1ac-e51c552294b8.mp4",
+            "order": 4,
+            "duration": 4
+        },
+        {
+            "url":"http://web13.youtube-video-download.com/yvd-files/all-over-in-10-seconds.mp4/20180825215225_f9873bbe-52f3-4608-a5b0-5e60ce48245a.mp4",
+            "order": 5,
+            "duration": 4
+        }
+
+    ]
+}
+

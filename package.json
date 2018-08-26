@@ -1,0 +1,24 @@
+{
+  "name": "player",
+  "version": "1.0.0",
+  "description": "An inteface for playing videos",
+  "main": "VideoPlayer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbsoftgit/screen-video-player.git"
+  },
+  "author": "GRIB Ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbsoftgit/screen-video-player/issues"
+  },
+  "homepage": "https://github.com/gbsoftgit/screen-video-player#readme",
+  "dependencies": {
+    "is-online": "^7.0.0",
+    "node-fetch": "^2.2.0",
+    "zmq": "^2.15.3"
+  }
+}
