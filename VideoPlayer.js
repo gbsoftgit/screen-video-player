@@ -18,6 +18,7 @@ const video_storage_path = 'videos/';     // for VLC player, f for fullscreen an
 const player_args = ['-f', '-L', '--one-instance', '--playlist-enqueue'];
 const player_program = 'vlc';
 const log_folder = 'logs/';
+const server_url = 'http://localhost:8000/';
 
 class VideoPlayer {
     constructor() {
@@ -30,11 +31,12 @@ class VideoPlayer {
         if (!fs.existsSync(video_storage_path)) fs.mkdir(video_storage_path);
 
         this.log_file = fs.createWriteStream(log_folder + this.player_log_file);
+        //Comment the line below to see the log on the console
         process.stdout.write = process.stderr.write = this.log_file.write.bind(this.log_file);
 
         this.getPlaylist()
         .then ((result) => {
-            this.playlist = JSON.parse(result);
+            this.playlist = result;
             console.log(this.playlist.playlist_items);
             this.startPlayer();
         })
@@ -71,14 +73,14 @@ class VideoPlayer {
             isOnline()
             .then(online => {
                 //It's temporary, should be a fetch instead
-                fs.readFile('playlist.json', (err, data) => {
-                    if (err){
-                        console.log('online');
-                        reject(err);
-                    }
-                    resolve (data.toString());
-                })
+
+                fetch(server_url + 'dump')
+                    .then(res => res.json())
+                    .then(json => resolve(json))
+                    .catch(err => console.error(err));
+
             })
+
             .catch((err) => {
                 fs.readFile('playlist.json', (err, data) => {
                     if (err){
@@ -144,14 +146,18 @@ class VideoPlayer {
         console.log(this.videoList);
         //download the missing, if there is
         if (this.videoList.toDownload.length > 0) {
+            console.log("ddd");
+
             this.downloadMissing();
         }
         //set the videos to the default
         //if there are vids on disks, play them
+        console.log("here");
+
         let videos = video_storage_path + default_video;
         if (this.videoList.onDisk.length > 0)
         {
-            console.log("here");
+            console.log("here 2");
             
             videos = this.videoList.onDisk;
         }
@@ -186,6 +192,15 @@ class VideoPlayer {
 
 let videoPlayer = new VideoPlayer();
 
+setInterval (() => {
+    fetch(server_url + 'dump')
+        .then(res => res.json())
+        .then(json => videoPlayer.updatePlaylist(json))
+        .catch(err => console.error(err));
+
+}, 3600000);
+
+/* Not now bitch
 //for receiving playlist
 puller.on('message', function(data) {
     let msg = JSON.parse(data);
@@ -205,3 +220,4 @@ rep.bind('tcp://127.0.0.1:8880', function(err) {
 
 console.log('listening ...');
 //puller.connect('tcp://localhost:5434');
+*/
